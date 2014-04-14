@@ -40,7 +40,7 @@ def cookiecutter(input_dir, checkout=None, no_input=False):
     config_dict = get_user_config()
 
     # TODO: find a better way to tell if it's a repo URL
-    if "git@" in input_dir or "https://" in input_dir:
+    if not os.system("git ls-remote %s" % input_dir):
         repo_dir = clone(
             repo_url=input_dir,
             checkout=checkout,
@@ -111,7 +111,7 @@ def main():
             format='%(levelname)s: %(message)s',
             level=logging.INFO
         )
-    
+
     cookiecutter(args.input_dir, args.checkout, args.no_input)
 
 
